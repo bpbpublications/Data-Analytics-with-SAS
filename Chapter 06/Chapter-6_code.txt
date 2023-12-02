@@ -1,0 +1,155 @@
+Example1:
+1.	Data s.visit1;
+2.	Set s. visits;
+3.	where SysBP >110 and SysBP <130;
+4.	Run;
+
+
+Example2:
+1.	Data s.visit1;
+2.	Set s. visits;
+3.	where  ID in ('A002','A008') ;
+4.	Run;
+
+
+Example:
+1.	data s.stress1;
+2.	set s.stress;
+3.	final_time=(timemin*60) + timesec;
+4.	Run;
+5.	
+6.	Data  s.stress2 ;
+7.	Set   s.stress1;
+8.	length TestLength $10 ;
+9.	If final_time>800 then TestLength='Longer';
+10.	Else if  750<=final_time<=800 then TestLength='Normal';
+11.	Else if final_time<750 then TestLength='Shorter';
+12.	Run;
+
+
+Example:
+1.	Data s.stress; Set s.stress;
+2.	if resthr<70 then delete;
+3.	Run;
+
+
+Example:
+1.	data s.school1;
+2.	input name $ class $ score ;
+3.	cards;
+4.	A math 10
+5.	B history 8
+6.	C science 7
+7.	;
+8.	run;
+9.	
+10.	data s.merge;
+11.	 merge s.school s.school1;
+12.	 by name;
+13.	 run;
+14.	
+15.	data s.school_where;
+16.	 merge s.school s.school1;
+17.	 by name;
+18.	*subsets BEFORE merging;
+19.	where score = 10;
+20.	 run;
+21.	
+22.	
+23.	data s.school_if;
+24.	merge s.school s.school1;
+25.	by name;
+26.	*subsets AFTER merging;
+27.	if score = 10;
+28.	 run;
+
+
+Example:
+1.	data s.set1;
+2.	set s.grocery;
+3.	length group $8.;
+4.	select(Dept);
+5.	wh“n("”p1") gro”p="Pa”er";
+6.	wh“n("”p2") gro”p="Can”ed";
+7.	otherwise gro”p="Ot”er";
+8.	end;
+9.	run;
+
+
+Example1:
+1.	Proc contents data= S._all_ nods;
+2.	run;
+
+
+Example2:
+1.	Proc contents data= S.mtcars varnum;
+2.	run;
+
+
+Example:
+1.	proc format;
+2.	   value class_fmt 1='Fresher' 2='Sophmore' 3='Junior' 4='Senior';
+3.	run;
+4.	
+5.	data class;
+6.	   format z class_fmt.;
+7.	   label x='ID'
+8.	      y='AGE'
+9.	      z='CLASS_STATUS';
+10.	   input x y z;
+11.	datalines;
+12.	1 40 3
+13.	2 28 2
+14.	;
+15.	run;
+16.	
+17.	
+18.	proc datasets lib=work memtype=data;
+19.	   modify class;
+20.	     attrib _all_ label=' ';
+21.	     attrib _all_ format=;
+22.	run;
+23.	contents data=class;
+24.	run;
+25.	quit;
+
+
+Example:
+1.	proc print data=s.Iris;
+2.	by species;
+3.	Var species;
+4.	sum petallength;
+5.	Run;
+
+
+Example:
+1.	Data s.iris1 ;
+2.	Set  s.iris(firstobs=10 obs=100);
+3.	run;
+
+
+Example:
+1.	Data s.grocery1;
+2.	Set s.grocery;
+3.	Label  Manager ='Manager_Name';
+4.	Rename Manager=MANAGER_NAME;
+5.	Run;
+
+
+Example:
+1.	Data s.visit1(drop=SysBP);
+2.	Set s.visit;
+3.	Run;
+4.	
+5.	Data s.visit2(Keep=SysBP);
+6.	Set s.visit;
+7.	Run;
+
+Example:
+1.	Data s.iris1 ;
+2.	Set s.iris;
+3.	total_length=sum(Sepallength,Petallength);
+4.	Drop Sepallength Petallength;
+5.	Run;
+
+

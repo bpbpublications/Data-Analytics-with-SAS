@@ -1,0 +1,90 @@
+Example1:
+1.	Data S.Iris_new;
+2.	set iris;
+3.	Length_Diff = Sepal length + Petal length;
+4.	run;
+
+
+Example2:
+1.	data s.security;
+2.	   input EmployeeID $  1-9 Name $ 11-29 Gender $ 30
+3.	         @32 HireDate date9. Salary;
+4.	   format HireDate date9.;
+5.	   datalines;
+6.	I44289612 Saparilas, Theresa F 09may1999 38600
+7.	I24904032 Brosnihan, Dylan   M 04jan1992 38000
+8.	I42779184 Chao, Daeyong      M 28sep1997 37100
+9.	I44382887 Slifkin, Leah      F 24jul1993 49000
+10.	I33476520 Perry, Marguerite  F 19apr1990 49900
+11.	;
+
+
+Example3:
+1.	proc sort data=s.A out=s.B;
+2.	by weight age;
+3.	run;
+
+
+Example:
+1.	proc copy in=work out=S;
+2.	 run;
+
+
+Example:
+1.	proc import datafile= "/home/sidananishant0/Iris.csv" out=s.iris dbms=csv replace;
+2.	run;
+
+
+We can also import it using a comma as an ordinary delimiter,
+1.	proc import datafile= "/home/sidananishant0/iris.txt" out=s.iris dbms=dlm replace; Delimiter= “,”;
+2.	getnames=yes; datarow=5 replace;
+3.	run;
+
+
+Example:
+1.	proc import datafile= "/home/sidananishant0/Grocery.xls" out=s.grocery dbms=xls replace;
+2.	sheet="grocery";
+3.	run;
+
+
+Example1:
+We can also import it using a comma as an ordinary delimiter,
+1.	proc import datafile= "D:\Training\SAS\Class-3\iris.txt" out=s.iris dbms=dlm replace; Delimiter= ‘09’x;
+2.	getnames=yes; datarow=5 replace;
+3.	run;
+
+
+Example2:
+We can also import it using a comma as an ordinary delimiter,
+1.	proc import datafile= ""/home/sidananishant0/iris.txt" out=s.iris dbms=tab replace; 
+2.	getnames=no; datarow=5 replace;
+3.	run;
+
+
+Example1:
+1.	Data s.emp_details;
+2.	Input id $ name $  age  Location $;
+3.	cards;
+4.	I58 Raj,N 42 GGN
+5.	I62 Ajay,C 38 BAN
+6.	I23 Vijay,R 39 DEL
+7.	I39 Mohit,T 45 MUM
+8.	I44 Joginder,G 49 HYD
+9.	;
+10.	Run;
+
+
+Example2:
+1.	Data s.emp_details1;
+2.	length name $15.;
+3.	Input id $ name $ age Location $;
+4.	Datalines4;
+5.	I58 Raj,N 42 GGN;NCR
+6.	I62 Ajay,C 38 BAN
+7.	I23 Vijay,R 39 DEL
+8.	I39 Mohit,T 45 MUM
+9.	I44 Joginder,G 49 HYD
+10.	;;;;
+11.	run;
+
+

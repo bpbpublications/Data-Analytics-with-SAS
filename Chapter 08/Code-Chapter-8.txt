@@ -1,0 +1,246 @@
+LIBNAME Statement:
+1.	libname S "/home/sidananishant0";
+
+
+Example:
+1.	filename exer '/home/sidananishant0/New1/exercise.txt';
+
+
+Example:
+1.	filename exer '/home/sidananishant0/New1/exercise.txt';
+2.	data exercise;
+3.	infile exer;
+
+
+Example:
+1.	filename set1 '/home/sidananishant0/exercise.txt';
+2.	data exercise;
+3.	infile set1;
+4.	input ID_no $ 1-4 Age 6-7 Act_Level $ 9-12 Gender $ 14;
+5.	run;
+
+
+Example:
+1.	DATA set1;
+2.	INPUT   ID NAME $ DEPARTMENT $ ;
+3.	DATALINES;
+4.	1 Rahul  IT
+5.	2 Anil  OPS
+6.	3 Tushar  IT
+7.	4 Pranab  OPS
+8.	5 Seema  FIN
+9.	;
+10.	PROC PRINT DATA = set1;
+11.	RUN;
+
+
+Example:
+1.	DATA set2;
+2.	INPUT   
+3.	ID= NAME= $ DEPARTMENT= $ ;
+4.	DATALINES;
+5.	ID=1 NAME=Rahul  DEPARTMENT=IT
+6.	ID=2 NAME=Anil  DEPARTMENT=OPS
+7.	ID=3 NAME=Tushar  DEPARTMENT=IT
+8.	ID=4 NAME=Pranab  DEPARTMENT=OPS
+9.	ID=5 NAME=Seema  DEPARTMENT=FIN
+10.	;
+11.	PROC PRINT DATA = set2;
+12.	RUN;
+
+
+Example:
+1.	filename set4 ‘/home/sidananishant0/invent.txt’;
+2.	data invent2;
+3.	infile set4;
+4.	input Stock 21-22 Back_Order 24-25 Item_description $ 1-13
+5.	           ID $ 15-19; 
+6.	run;
+
+
+Example:
+1.	filename emp '/home/sidananishant0/EmpInfo.txt';
+2.	data empinfo;
+3.	infile emp ;
+4.	input @9 First_Name $5. @1 Last_Name $7. @15 Title 4.
+5.	           @20 Sal comma9.;
+6.	run;
+
+
+Example:
+1.	filename emp '/home/sidananishant0/EmpInfo.txt';
+2.	data empinfo1;
+3.	infile emp ;
+4.	input  Last_Name $7. +1 First_Name $5. +6 Sal comma9.
+5.	           @15 Title 4.;
+6.	run;
+
+
+Example:
+1.	filename emp ‘/home/sidananishant0/EmpInfo.txt’;
+2.	data emp2;
+3.	infile emp;
+4.	input @9 First_Name $5. @1 Last_Name $7. +7 Title 4. @19 Sal comma9.;
+5.	run;
+6.	proc print data=emp2;
+7.	run;
+
+
+Code for reading the file:
+
+1.	DATA data1;
+2.	 infile '/home/sidananishant0/data.txt';
+3.	 input @1 subject 4. name $ 6-23 street_add $ 27-45;
+4.	RUN;
+5.	
+6.	PROC PRINT;
+7.	 title 'Street Address';
+8.	RUN;
+
+
+Example:
+1.	DATA data1;
+2.	 infile '/home/sidananishant0/data.txt' PAD;
+3.	 input @1 subject 4. name $ 6-23 street_add $ 27-45;
+4.	RUN;
+5.	
+6.	PROC PRINT;
+7.	 title 'Address';
+8.	RUN;
+
+
+Example:
+1.	DATA set1;
+2.	INPUT   ID NAME $ DEPARTMENT $ ;
+3.	DATALINES;
+4.	1 Rahul  IT
+5.	2 Anil  OPS
+6.	3 Tushar  IT
+7.	4 Pranab  OPS
+8.	5 Seema  FIN
+9.	;
+10.	PROC PRINT DATA = set1;
+11.	RUN;
+
+
+Code for reading the file:
+
+1.	filename card '/home/sidananishant0/credit.txt';
+2.	data survey_report;
+3.	infile card dlm=',';
+4.	input Gender $ Age Bank_card Bank_Freq Dept_card Freq_Dept;
+5.	run;
+6.	proc print
+7.	data=survey_report;
+8.	run;
+
+
+Code for reading the file:
+
+1.	filename credit1 '/home/sidananishant0/credit1.txt';
+2.	data survey1;
+3.	infile credit1 missover ;
+4.	input Gender $ Age Bank_card Freq_Bank Dept_card Freq_Dept;
+5.	run;
+6.	proc print
+7.	data=survey1;
+8.	title 'Credit_Card_Report';
+9.	run;
+
+
+Code for reading the file:
+1.	filename credit2 '/home/sidananishant0/credit2.txt';
+2.	data survey2;
+3.	infile credit2 dsd ;
+4.	input Gender $ Age Bank_card Freq_Bank Dept_card Freq_Dept;
+5.	run;
+6.	
+7.	proc print
+8.	data=survey2;
+9.	title 'Credit_Card_Report';
+10.	run;
+
+
+Code for reading the file:
+1.	filename credit3 '/home/sidananishant0/credit3.txt';
+2.	data survey3;
+3.	infile credit3 dsd ;
+4.	input Gender $ Age Bank_card Freq_Bank Dept_card Freq_Dept;
+5.	run;
+6.	
+7.	proc print
+8.	data=survey3;
+9.	title 'Credit_Card_Report';
+10.	run;
+
+
+Code for reading the file:
+1.	/*Reading Missing Values with other delimiter*/
+2.	filename credit4 '/home/sidananishant0/credit4.txt';
+3.	data survey4;
+4.	infile credit4 dsd dlm='*';
+5.	input Gender $ Age Bank_card Freq_Bank Dept_card Freq_Dept;
+6.	run;
+7.	
+8.	proc print
+9.	data=survey4;
+10.	title 'Credit_Card_Report';
+11.	run;
+
+
+Code:
+1.	filename topten1 '/home/sidananishant0/topten.txt';
+2.	data city_rank;
+3.	infile topten1;
+4.	input ranking city_name & $12.
+5.	Population : comma.;
+6.	run;
+
+
+Code:
+1.	filename  member '/home/sidananishant0/memdata.txt';
+2.	data members;
+3.	     infile member;
+4.	     input First_name $ Last_name $ /
+5.	           Address $ 1-20 /
+6.	           City_name & $10. State $ Zipcode $;
+7.	run;
+8.	proc print data=members; title 'Street Address'; run;
+
+
+Code:
+1.	filename  pat_data '/home/sidananishant0/patdata.txt';
+2.	data patients;
+3.	infile pat_data;
+4.	input #4 ID $5.
+5.	#1 F_name $ L_name $
+6.	#2 Address $23.
+7.	#3 City_name $ State $ Zipcode $
+8.	#4 @7 Doc $6.;
+9.	run;
+10.	proc print data=patients; title 'Address'; run;
+
+
+Example:
+1.	filename  temp1 '/home/sidananishant0/temp.txt';
+2.	data april90_temp;
+3.	infile temp1;
+4.	input Date : date. High_Temp @@;
+5.	format date date9.;
+6.	run;
+7.	proc print data=april90_temp; title 'Temperature_April90'; run;
+
+
+Example:
+1.	filename  data1 '/home/sidananishant0/data97.txt';
+2.	data sales1;
+3.	infile data1;
+4.	input ID $ @;
+5.	do Qrt=1 to 4;
+6.	input Sales_figure : comma. @;
+7.	output;
+8.	end;
+9.	run;
+10.	proc print data=sales1; title 'Quarterly Sales of Mangoes'; run;
+
+

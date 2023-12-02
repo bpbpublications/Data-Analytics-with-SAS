@@ -1,0 +1,346 @@
+Example 1: Display DOJ in DDMMYY format:
+1.	Proc print Data=Sales;
+2.	Format HireDate Date7.;
+3.	Run;
+
+ Example 2: Display the Salary in Dollars with one decimal position
+1.	Proc print Data=s.Sales;
+2.	Format Salary Dollar9.1;
+3.	Run;
+
+
+
+1.	proc format lib=S;
+2.	value jobfmt
+3.	              103='manager'
+4.	              105='text processor'
+5.	              111='assoc. technical writer'
+6.	              112='technical writer'
+7.	              113='senior technical writer';
+8.	value sal
+9.	              low-25000    ='<25000'
+10.	              25000-<30000 ='25000-30000'
+11.	              30000-High ='>=30000';
+12.	
+13.	run;
+14.	
+15.	Proc Print Data = s.Empinfo ;
+16.	format Job_Title jobfmt. Salary sal.;
+17.	Run;
+
+
+
+
+
+1.	proc format lib=S;
+2.	value jobfmt
+3.	              103='manager'
+4.	              105='text processor'
+5.	              111='assoc. technical writer'
+6.	              112='technical writer'
+7.	              113='senior technical writer';
+8.	value sal
+9.	              low-25000    ='<25000'
+10.	              25000-<30000 ='25000-30000'
+11.	              30000-High ='>=30000';
+12.	
+13.	run;
+14.	
+15.	options fmtsearch =(S);
+16.	data S.Empinfo1;
+17.	set S.Empinfo;
+18.	format Job_Title jobfmt. Salary sal.;
+19.	run;
+
+
+
+
+
+1.	DATA IT1; 
+2.	   INPUT empid name $ salary; 
+3.	DATALINES; 
+4.	1 Richard 623.9 
+5.	3 Michael 611.2 
+6.	6 Tusar 568.6 
+7.	; 
+8.	RUN; 
+9.	DATA IT2; 
+10.	   INPUT empid name $ salary; 
+11.	DATALINES; 
+12.	2 Danny 505.2 
+13.	4 Ryan 729.1 
+14.	5 Gaurav 897.25 
+15.	7 Pranab 632.8 
+16.	8 Rashmi 922.5 
+17.	RUN; 
+18.	DATA IT; 
+19.	   SET IT1 IT2; 
+20.	RUN; 
+21.	PROC PRINT DATA = IT; 
+22.	RUN; 
+
+
+1.	Data S.A;
+2.	Input ID Var_A $;
+3.	Cards;
+4.	1 A1
+5.	2 A2
+6.	3 A3
+7.	;
+8.	run;
+9.	
+10.	Data S.B;
+11.	Input ID Var_A $ Var_B $;
+12.	Cards;
+13.	4 A4 B1
+14.	5 A5 B2
+15.	6 A6 B3
+16.	;
+17.	run;
+18.	
+19.	proc append base=S.B data=S.A;
+20.	run;
+
+
+
+Example:
+1.	Data S.A;
+2.	Input ID Var_A $;
+3.	Cards;
+4.	1 A1
+5.	2 A2
+6.	3 A3
+7.	;
+8.	run;
+9.	
+10.	Data S.B;
+11.	Input ID Var_A $ Var_B $ ;
+12.	Cards;
+13.	4 A4 B1
+14.	5 A5 B2
+15.	6 A6 B3
+16.	;
+17.	run;
+18.	
+19.	proc append base=S.A data=S.B force ;
+20.	run;
+
+
+
+Example
+1.	data s.admit;
+2.	   input ID $ 1-4 Name $ 6-19 Sex $ 22 Age 26-27 Date 30-31
+3.	         Height 36-37 Weight 43-45 ActLevel $ 50-53 Fee 57-62;
+4.	   format fee 7.2;
+5.	datalines;
+6.	2458 Murray, W       M   27   1    72     168    HIGH    85.20
+7.	2462 Almers, C       F   34   3    66     152    HIGH   124.80
+8.	2501 Bonaventure, T  F   31  17    61     123    LOW    149.75
+9.	2523 Johnson, R      F   43  31    63     137    MOD    149.75
+10.	2539 LaMance, K      M   51   4    71     158    LOW    124.80
+11.	2544 Jones, M        M   29   6    76     193    HIGH   124.80
+12.	2552 Reberson, P     F   32   9    67     151    MOD    149.75
+13.	2555 King, E         M   35  13    70     173    MOD    149.75
+14.	2563 Pitts, D        M   34  22    73     154    LOW    124.80
+15.	2568 Eberhardt, S    F   49  27    64     172    LOW    124.80
+16.	2571 Nunnelly, A     F   44  19    66     140    HIGH   149.75
+17.	2572 Oberon, M       F   28  17    62     118    LOW     85.20
+18.	2574 Peterson, V     M   30   6    69     147    MOD    149.75
+19.	2575 Quigley, M      F   40   8    69     163    HIGH   124.80
+20.	2578 Cameron, L      M   47   5    72     173    MOD    124.80
+21.	2579 Underwood, K    M   60  22    71     191    LOW    149.75
+22.	2584 Takahashi, Y    F   43  29    65     123    MOD    124.80
+23.	2586 Derber, B       M   25  23    75     188    HIGH    85.20
+24.	2588 Ivan, H         F   22  20    63     139    LOW     85.20
+25.	2589 Wilcox, E       F   41  16    67     141    HIGH   149.75
+26.	2595 Warren, C       M   54   7    71     183    MOD    149.75
+27.	;
+
+
+
+1.	proc sort data=s.admit out=s.wgtadmit;
+2.	by weight age;
+3.	run;
+
+
+Example
+1.	data s.readin;
+2.	input ID Name $ Score;
+3.	cards;
+4.	1     David   45
+5.	1     David   74
+6.	2     Sam     45
+7.	2     Ram     54
+8.	3     Bane    87
+9.	3     Mary    92
+10.	3     Bane    87
+11.	4     Dane    23
+12.	5     Jenny   87
+13.	5     Ken     87
+14.	6     Simran  63
+15.	8     Priya   72
+16.	;
+17.	run;
+18.	
+19.	PROC SORT DATA = readin NODUP;
+20.	BY _all_;
+21.	RUN;
+
+
+Example
+1.	data s.readin;
+2.	input ID Name $ Score;
+3.	cards;
+4.	1     David   45
+5.	1     David   74
+6.	2     Sam     45
+7.	2     Ram     54
+8.	3     Bane    87
+9.	3     Mary    92
+10.	3     Bane    87
+11.	4     Dane    23
+12.	5     Jenny   87
+13.	5     Ken     87
+14.	6     Simran  63
+15.	8     Priya   72
+16.	;
+17.	run;
+
+
+Example 1: One-to-One Merging
+It is used to combine observations from two data sets into a single observation of a new data set.
+
+1.	data class;
+2.	   input Name $ 1-25 Year $ 26-34 Major $ 36-50;
+3.	   datalines;
+4.	Abbott, Jennifer         first
+5.	Carter, Tom              third     Theater
+6.	Mendoza, Elissa          fourth    Mathematics
+7.	Tucker, Rachel           first
+8.	Uhl, Roland              second
+9.	Wacenske, Maurice        third     Theater
+10.	;
+11.	run;
+12.	
+13.	data time_slot;
+14.	   input Date date9.  @12 Time $ @19 Room $;
+15.	   format date date9.;
+16.	   datalines;
+17.	14sep2012  10:00  103
+18.	14sep2012  10:30  103
+19.	14sep2012  11:00  207
+20.	15sep2012  10:00  105
+21.	15sep2012  10:30  105
+22.	17sep2012  11:00  207
+23.	;
+24.	run;
+25.	
+26.	data schedule;
+27.	   merge class time_slot;
+28.	run;
+29.	
+30.	proc print data=schedule;
+31.	   title 'Student Conference Assignments';
+32.	run;
+
+
+Example 2: Match-Merging
+It is used to combine observations from two data sets into a single observation of a new data set according to the values of a variable that is specified in the BY statement:
+1.	Data s.Demog;
+2.	Input Obs ID $ Age Gender $ DoB mmddyy8.;
+3.	format DoB mmddyy8.;
+4.	Cards;
+5.	1 A001 21 m 05/22/75
+6.	2 A002 32 m 06/15/63
+7.	3 A003 24 f 08/17/72
+8.	4 A004 .  m  03/27/69
+9.	5 A005 44 f 02/24/52
+10.	6 A007 39 m 11/11/57
+11.	;
+12.	run;
+13.	
+14.	
+15.	Data s.Visits;
+16.	Input Obs ID $ Visit SysBP DiasBP Weight Date_visit mmddyy8.;
+17.	format Date_visit mmddyy8.;
+18.	Cards;
+19.	1 A001 1 140 85 195 11/05/98
+20.	2 A001 2 138 90 198 10/13/98
+21.	3 A001 3 145 95 200 07/04/98
+22.	4 A002 1 121 75 168 04/14/98
+23.	5 A003 1 118 68 125 08/12/98
+24.	6 A003 2 112 65 123 08/21/98
+25.	7 A004 1 143 86 204 03/30/98
+26.	8 A005 1 132 76 174 02/27/98
+27.	9 A005 2 132 78 175 07/11/98
+28.	10 A005 3 134 78 176 04/16/98
+29.	11 A008 1 126 80 182 05/22/98
+30.	;
+31.	run;
+32.	
+33.	proc sort data=s.Demog;
+34.	by ID;
+35.	run;
+36.	
+37.	proc sort data=s.Visits;
+38.	by ID;
+39.	run;
+40.	
+41.	
+42.	Data s.Combined;
+43.	merge s.demog s.visits;
+44.	by ID;
+45.	run;
+46.	
+47.	proc print data=s.Combined;   
+48.	run;
+
+Example:
+In the above example if we merge data sets like the below code:
+1.	Data s.Combined_common;
+2.	merge s.demog (in=d) s.visits (in=v);
+3.	by ID;
+4.	if d=1 and v=1;
+5.	run;
+
+
+
+Example
+1.	Data s.data;
+2.	Input ID $ VarA;
+3.	Cards;
+4.	1 1
+5.	2 3
+6.	3 3
+7.	4 5
+8.	5 6
+9.	6 7
+10.	7 9
+11.	8 9
+12.	9 8
+13.	10 2
+14.	;
+15.	run;
+16.	
+17.	
+18.	Data s.data1 s.data2 s.data3;
+19.	Set  s.data;
+20.	If varA=1 then output s.data1;
+21.	If varA=2 then output s.data2;
+22.	If varA=3 then output s.data3;
+23.	run;
+24.	
+25.	proc print data=s.data1;  
+26.	title 'Data1'; 
+27.	run;
+28.	
+29.	proc print data=s.data2; 
+30.	title 'Data2';   
+31.	run;
+32.	
+33.	proc print data=s.data3; 
+34.	title 'Data3';   
+35.	run;
+
+
+

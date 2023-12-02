@@ -1,0 +1,189 @@
+Example :
+1.	%LET ID = "A001";
+2.	proc print data = s.visit;
+3.	where ID = &ID ;
+4.	 TITLE "Visit of &ID";
+5.	run;
+
+
+Example : Display all automatic variables:
+1.	%put _automatic_;
+
+
+Example :
+1.	title "Talent99";
+2.	footnote "Report Run on &sysday, &sysdate9";
+3.	data s.talent99;
+4.	   set s.talent;
+5.	   if year(lasthired)=1999;
+6.	   format birthdate lasthired date.;
+7.	run;
+8.	proc print data=s.talent99;
+9.	run;
+
+
+
+Example :
+1.	%macro print(dataset, filter, filter_val);
+2.	
+3.	proc print data=&dataset.;
+4.	
+5.	    where &filter. in (&filter_val.)  ;
+6.	run;
+7.	
+8.	%mend;
+9.	
+10.	%print(sashelp.retail, month, 1);
+
+
+Example :
+6.	%LET ID = "A001";
+7.	proc print data = s.visit;
+8.	where ID = &ID ;
+9.	 TITLE "Visit of &ID";
+10.	run;
+
+
+Example 1: Displaying user-generated variables:
+1.	%macro my(name1);
+2.	proc print data=&name1;
+3.	title "Listing of &name1 on &sysdate";
+4.	footnote "&foot";
+5.	run;
+6.	%put _user_;
+7.	%mend my;
+8.	%let foot=Data;
+9.	%my(s.talent)
+
+Example 2: Displaying local variables:
+1.	%macro analyze(name1,var1);
+2.	   proc freq data=&name1;
+3.	      tables &var1;
+4.	run;
+5.	%put FIRST LIST:;
+6.	%put _local_;
+7.	%let firstvar=%scan(&var1,1);
+8.	proc print data=&name1;
+9.	  where &firstvar ne .;
+10.	run;
+11.	%put SECOND LIST:;
+12.	%put _local_;
+13.	%mend analyze;
+14.	%analyze(s.talent1,Last_Hired)
+
+Example:
+1.	%MACRO car_spec(make_ , type_car_);
+2.	proc print data = s.cars1;
+3.	where make = "&make_" and type_car = "&type_car_" ;
+4.	TITLE "Specification as of &SYSDAY &SYSDATE";
+5.	run;
+6.	%MEND;
+7.	%car_spec(BMW,SUV);
+
+
+Example:
+1.	%macro class_detail(var10,sum10);
+2.	   proc print data=s.class1;
+3.	      Var10 &var10.;
+4.	      sum10 &sum10.;
+5.	   run;
+6.	%mend class_detail;
+7.	
+8.	%class_detail(Name Age, ht)
+
+
+Example:
+1.	%macro finance_1(y_var=84,x_var=Alice);
+2.	   proc print data=s.class1;
+3.	     where weight=&y_var AND name="&x_var" ;
+4.	   run;
+5.	 %mend finance_1;
+6.	
+7.	%finance_1(y_var=112.5, x_var=Alfred);
+
+
+Example: %Do iterative statement:
+1.	%macro earn(no_months);
+2.	 data s.yearly_earning;
+3.	amount=1000;
+4.	rate=.075/2;
+5.	        %do month =1 %to &no_months;
+6.	        earned+(amount+earned)*rate;
+7.	        %end;
+8.	run;
+9.	  %mend earn;
+10.	
+11.	%earn(24)
+
+
+Example 1:
+1.	data Team_Alpha;
+2.	      input position : $8. player_name : $12.;
+3.	       call symput(position,player_name);
+4.	      datalines;
+5.	      pitcher    Nishant
+6.	      shortstp   Rahul
+7.	      frstbase   Anil
+8.	 ;
+9.	run;
+
+
+Example 2:
+1.	data Team_Beta;
+2.	input position : $12. player_name $12.;
+3.	call symput('POS'||left(_n_), position);
+4.	datalines;
+5.	pitcher    Nishant
+6.	shortstp   Rahul
+7.	frstbase   Anil
+8.	;
+9.	run;
+
+
+Example 3:
+1.	data Date;
+2.	input the_date mmddyy.;
+3.	call symput('hol_date',trim(left(put(the_date,worddate.))));
+4.	datalines;
+5.	061499
+6.	;
+7.	run;
+
+
+Example: %DO statement with %IF-%THEN/%ELSE statement:
+1.	%macro reportit(request);
+2.	   %if %upcase(&request)=STAT %then
+3.	      %do;
+4.	         proc means data=sashelp.class;
+5.	            title "Summary of All Numeric Variables";
+6.	         run;
+7.	      %end;
+8.	   %else %if %upcase(&request)=PRINTIT %then
+9.	      %do;
+10.	         proc print data=sashelp.class;
+11.	            title "Listing of Data";
+12.	         run;
+13.	      %end;
+14.	   %else %put Incorrect report type. Please try again.;
+15.	   title;
+16.	%mend reportit;
+17.	
+18.	%reportit(stat)
+
+
+Example:
+1.	data yearly_data;
+2.	input date year month $;
+3.	datalines;
+4.	21 1981 January
+5.	22 1982 February
+6.	23 1983 March
+7.	24 1984 April ;
+8.	%include 'MYFILE1';
+9.	proc print;
+10.	run;
+
+
+
+
+

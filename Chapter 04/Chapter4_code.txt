@@ -1,0 +1,224 @@
+Example:
+1.	data s.set1;
+2.	   input Idno $ 1-4 FName $ 6-19 RestHR 23-24 MaxHR 29-31
+3.	         RecHR 35-37 TimeMin 43-44 TimeSec 51-52
+4.	         Tolerance $ 58;
+5.	datalines;
+6.	0058 Murali           72    185   128     12      38     D
+7.	0062 Alia             68    171   133     10       5     I
+8.	0001 Bachchan         78    177   139     11      13     I
+9.	0023 Johnson          69    162   114      9      42     S
+10.	0039 Lawrence         75    168   141     11      46     D
+11.	0044 John             79    187   136     12      26     N
+12.	0052 Robinson         69    158   139     15      41     D
+13.	0055 King             70    167   122     13      13     I
+14.	0063 Prashant         71    159   116     10      22     S
+15.	0068 Ravi             72    182   122     16      49     N
+16.	0071 Naina            65    181   141     15       2     I
+17.	0072 Oberoi           74    177   138     12      11     D
+18.	0074 Peterson         80    164   137     14       9     D
+19.	0075 Jimmy            74    152   113     11      26     I
+20.	0078 Cameron          75    158   108     14      27     I
+21.	0079 Kulwinder        72    165   127     13      19     S
+22.	0084 Takahashi        76    163   135     16       7     D
+23.	0086 Devinder         68    176   119     17      35     N
+24.	0088 Kuldeep          70    182   126     15      41     N
+25.	0089 Williamson       78    189   138     14      57     I
+26.	0095 Buffet           77    170   136     12      10     S
+27.	;
+28.	run;
+29.	
+30.	data s.set2;
+31.	set s.stress;
+32.	time=(timemin*60) + timesec;
+33.	Sec + time;
+34.	Run;
+
+
+Example with retain statement:
+1.	data s.set1;
+2.	   input Idno $ 1-4 FName $ 6-19 RestHR 23-24 MaxHR 29-31
+3.	         RecHR 35-37 TimeMin 43-44 TimeSec 51-52
+4.	         Tolerance $ 58;
+5.	datalines;
+6.	0058 Murali           72    185   128     12      38     D
+7.	0062 Alia             68    171   133     10       5     I
+8.	0001 Bachchan         78    177   139     11      13     I
+9.	0023 Johnson          69    162   114      9      42     S
+10.	0039 Lawrence         75    168   141     11      46     D
+11.	0044 John             79    187   136     12      26     N
+12.	0052 Robinson         69    158   139     15      41     D
+13.	0055 King             70    167   122     13      13     I
+14.	0063 Prashant         71    159   116     10      22     S
+15.	0068 Ravi             72    182   122     16      49     N
+16.	0071 Naina            65    181   141     15       2     I
+17.	0072 Oberoi           74    177   138     12      11     D
+18.	0074 Peterson         80    164   137     14       9     D
+19.	0075 Jimmy            74    152   113     11      26     I
+20.	0078 Cameron          75    158   108     14      27     I
+21.	0079 Kulwinder        72    165   127     13      19     S
+22.	0084 Takahashi        76    163   135     16       7     D
+23.	0086 Devinder         68    176   119     17      35     N
+24.	0088 Kuldeep          70    182   126     15      41     N
+25.	0089 Williamson       78    189   138     14      57     I
+26.	0095 Buffet           77    170   136     12      10     S
+27.	;
+28.	run;
+29.	
+30.	data s.set3;
+31.	set s.stress;
+32.	time=(timemin*60) + timesec;
+33.	Sec + time;
+34.	retain Sec 5400;
+35.	Run;
+
+
+Example:
+1.	data s.set1;
+2.	   input Department $ Name $ WageCategory $ WageRate;
+3.	   datalines;
+4.	BAD Carol Salaried 20000
+5.	BAD Elizabeth Salaried 5000
+6.	BAD Linda Salaried 7000
+7.	BAD Thomas Salaried 9000
+8.	BAD Lynne Hourly 230
+9.	DDG Jason Hourly 200
+10.	DDG Paul Salaried 4000
+11.	PPD Kevin Salaried 5500
+12.	PPD Amber Hourly 150
+13.	PPD Tina Salaried 13000
+14.	STD Helen Hourly 200
+15.	STD Jim Salaried 8000
+16.	;
+17.	run;
+18.	
+19.	
+20.	proc sort data=s.set1 out=s.set2;
+21.	by WageCategory;
+22.	run;
+
+
+Example:
+1.	data s.set1;
+2.	amount=1000;
+3.	rate=.075/2;
+4.	        do month =1 to 12;
+5.	        earned+(amount+earned)*rate;
+6.	        output;
+7.	        end;
+8.	run;
+
+
+Example:
+1.	data s.earning;
+2.	        do year=1 to 20;
+3.	        Capital+2000 ;
+4.	                do month = 1 to 12 ;
+5.	                Interest = capital * (.075/12) ;
+6.	                capital + interest ;
+7.	                output;
+8.	                end;
+9.	        end;
+10.	run;
+11.	
+12.	proc print data=s.earning; run;
+
+
+Example:
+1.	data s.earning;
+2.	        do year=1 to 20;
+3.	        Capital+2000 ;
+4.	                do month = 1 to 12 ;
+5.	                Interest = capital * (.075/12) ;
+6.	                capital + interest ;
+7.	                end;
+8.	        end;
+9.	run;
+10.	
+11.	proc print data=earning; run;
+
+
+Example:
+How many years will it take to earn $50,000 if we deposit $2,000 each year into an account that earns 10% interest.
+1.	data s.earn;
+2.	        do until (Capital>=50000);
+3.	        capital+2000;
+4.	        capital+(capital*.10);
+5.	        Year+1;
+6.	output;
+7.	        end;
+8.	run;
+9.	
+10.	proc print data=s.earn; run;
+
+
+Example:
+How many years will it take to earn $50,000 if you deposit $2,000 each year into an account that earns 10% interest.
+1.	data s.invest1;
+2.	        do while(Capital<=50000);
+3.	           capital+2000;
+4.	           capital+capital*.10;
+5.	           Year+1;
+6.	output;
+7.	        end;
+8.	run;
+9.	
+10.	proc print data=s.invest1; run;
+
+
+Example 1:
+1.	data s.tempearture;
+2.	input mon tue wed thr fri sat sun;
+3.	datalines;
+4.	78 83 74 71 77 85 70
+5.	78 83 74 71 77 85 70
+6.	78 83 74 71 77 85 70
+7.	78 83 74 71 77 85 70
+8.	78 83 74 71 77 85 70
+9.	;
+10.	run;
+11.	
+12.	data s.report(drop=i);
+13.	        set s.temps;
+14.	        array wkday{7} mon tue wed thr fri sat sun;
+15.	        do i=1 to 7;
+16.	           wkday{i}=5*(wkday{i}-32)/9;
+17.	        end;
+18.	     run;
+
+
+Example 2:
+1.	data s.Fit_Class;
+2.	input Name $ Weight1 Weight2 Weight3 Weight4 Weight5 Weight6;
+3.	datalines;
+4.	Alicia  153.4 151.9 151.7 148.6 145.5 145.9
+5.	Betsy   116   116   114   111.1 109.8 108.2
+6.	Brenda  151.2 149   147.7 146.4 145.1 143.7
+7.	Carl    149   146.8 145.5 144.2 142.9 141.5
+8.	Carmela 140.2 137.8 136.5 135.4 134 128.3
+9.	;
+10.	run;
+11.	
+12.	
+13.	data s.diff(drop=i);
+14.	set s.Fit_Class;
+15.	array wt{6} weight1-weight6;
+16.	array WgtDiff{5};
+17.	do i=1 to 5;
+18.	   wgtdiff{i}=wt{i+1}-wt{i};
+19.	end;
+20.	run;
+
+
+Example 3:
+1.	data s.finance2(drop=i);
+2.	        set s.finance;
+3.	        array sale{4} sales1-sales4;
+4.	        array goal{4} _temporary_ (9000 9300 9600 9900);
+5.	        array Achieved{4};
+6.	        do i=1 to 4;
+7.	           achieved{i}=100*sale{i}/goal{i};
+8.	        end;
+9.	run;
+
+

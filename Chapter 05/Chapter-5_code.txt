@@ -1,0 +1,252 @@
+Example:
+Sum function:
+1.	data test;
+2.	
+3.	x=sum(20,900,10);
+4.	
+5.	x1=sum(-10,-55,-39);
+6.	
+7.	run;
+
+
+Mean function:
+1.	data test1;
+2.	
+3.	x=mean(20,900,10);
+4.	
+5.	x1=mean(-10,-55,-39);
+6.	
+7.	run;
+
+
+
+Ceil function:
+It returns the smallest integer that is greater than or equal to the argument.
+1.	data test;
+2.	input a;
+3.	cards;
+4.	13.43
+5.	22.56
+6.	;
+7.	data test1;
+8.	set test;
+9.	x=ceil(a);
+10.	run;
+
+Example:
+1.	DATA names;
+2.	INPUT name $30.;
+3.	DATALINES;
+4.	John@Hammond@Smith
+5.	Dave@Ramon@Hernandez
+6.	Jean@Marie@Yang
+7.	 ;
+8.	Run;
+9.	
+10.	DATA names2;
+11.	SET names;
+12.	LENGTH first_name $30.;
+13.	LENGTH middle_name $30.;
+14.	LENGTH last_name $30.;
+15.	first_name=SCAN (name,1,’@’);
+16.	middle_name =SCAN (name,2,’@’);
+17.	last_name=SCAN (name,3,’@’);
+18.	run;
+
+Example:
+1.	data test;
+2.	input b $12.;
+3.	cards;
+4.	ANALYTICS
+5.	ANALYSIS
+6.	DATASCIENCE
+7.	;
+8.	run;
+9.	
+10.	data test1;
+11.	set test;
+12.	x=substr(b,4,5);
+13.	run;
+
+Example:
+1.	data set1;
+2.	length first last $20;
+3.	input first $ last $ ;
+4.	datalines;
+5.	Nishant Sidana
+6.	Rahul Arora
+7.	Anil Bajwa
+8.	;
+9.	run;
+10.	
+11.	data set2;
+12.	set set1;
+13.	name = catx(", ", of first last );
+14.	name1 = cat(of first last);
+15.	name2 = cats(of first last); /*removes leading and trailing blanks*/
+16.	name3 = catt(of first last); /*removes trailing blanks*/
+17.	run;
+
+
+Example1:
+1.	DATA Find;
+2.	INPUT name $30.;
+3.	DATALINES;
+4.	My Name Is Nishant Sidana
+5.	;
+6.	run;
+7.	
+8.	DATA Find_1;
+9.	SET Find;
+10.	Find_name=Find(name,'NishanT');
+11.	Find_name1=Find(name,'NishanT',"i");
+12.	Find_name2=Find(name,'Nishant',"t");
+13.	Find_name3=Find(name,'Nishant',14);
+14.	run;
+
+
+
+
+Example 2: Index function
+1.	DATA Find;
+2.	INPUT name $30.;
+3.	DATALINES;
+4.	My Name Is Nishant Sidana
+5.	;
+6.	run;
+7.	
+8.	
+9.	DATA Index1;
+10.	SET Find;
+11.	Find_name=Index(name,’Nishant’);
+12.	run;
+
+
+
+
+
+Example:
+1.	Data set1;
+2.	
+3.	INPUT string1 $7.string2 $7.;
+4.	DATALINES;
+5.	
+6.	Nishant Sidana
+7.	;
+8.	
+9.	run;
+10.	
+11.	Data set2;
+12.	
+13.	SET set1;
+14.	
+15.	string3 = string1 || string2;
+16.	
+17.	run;
+
+
+
+Example:
+1.	data temp;
+2.	input City $12. State $ Pin Mobile Start_Date End_Date PerhourRate $ Days Hours;
+3.	cards;
+4.	KOTA             RAJ      324001      6224549      14567      14621      10      11      88
+5.	KOTA             RAJ      324001      6223251      14524      14565      8       25      200
+6.	JAIPUR           RAJ      302001      9974749      14570      14608      40      26      208
+7.	AJMER            RAJ      305001      6970450      14516      14527      15      10      80
+8.	;
+9.	
+10.	data temp1;
+11.	set temp;
+12.	Salary=input(perhourrate,2.)*hours;
+13.	run;
+
+
+
+Example:
+1.	proc import datafile="/home/sidananishant0/temp2.csv"
+2.	out=S.temp2 dbms=csv replace;
+3.	getnames=Yes; datarow=2 ;
+4.	run;
+5.	
+6.	/*converts numeric vars to character vars*/
+7.	data temp3;
+8.	set S.temp2;
+9.	Assignment=put(site,2.)||'/'||dept;
+10.	run;
+
+Example 1: Today function:
+1.	data test;
+2.	now=today();
+3.	format now date9.;
+4.	run;
+
+
+
+
+Example 2: INTCK function
+1.	proc import datafile="/home/sidananishant0/mechanics.csv"
+2.	out=S.temp2 dbms=csv  replace;
+3.	delimiter="&"
+4.	run;
+5.	
+6.	data anniv;
+7.	set mechanics
+8.	            (keep=id lastname firstname hired);
+9.	        Years=intck('year',hired,today());
+10.	run;
+
+•	
+Example:
+1.	data month;
+2.	format dd date9. mm date9. yy date9.;
+3.	dd=intnx('day','01jan95'd,5,'b');
+4.	mm=intnx('month','01jan95'd,5,'m');
+5.	yy=intnx('year','01jan95'd,5,'e');
+6.	run;
+
+
+Example:
+1.	data test;
+2.	date= DATDIF(‘07Sep2020’d,’07Sep2023’d,’ACT/ACT’);
+3.	date1= DATDIF(‘07Sep2020’d,’07Sep2023’d,’30/360’);
+4.	run;
+
+
+
+Example:
+1.	data test1;
+2.	date1= YRDIF ('07Sep2020'd,'07Sep2023'd, 'ACT/ACT');
+3.	date2= YRDIF ('07Sep2020'd,'07Sep2023'd, 'ACT/360');
+4.	run;
+
+Example:
+1.	options nonumber nodate;
+2.	proc print data=S.admit;
+3.	var id sex age height weight;
+4.	where age>=30;
+5.	run;
+
+Example:
+1.	OPTIONS YEARCUTOFF=1920;
+2.	DATA twodigits1920;
+3.	INPUT date1 mmddyy8.;
+4.	FORMAT date1 worddatx20.;
+5.	DATALINES;
+6.	02/13/21
+7.	02/13/23
+8.	02/13/48
+9.	02/13/50
+10.	02/13/51
+11.	02/13/99
+12.	02/13/01
+13.	02/13/03
+14.	02/13/18
+15.	;
+16.	RUN;
+17.	 
+18.	PROC PRINT data=twodigits1920;
+19.	     title 'Years with two-digits when YEARCUTOFF = 1920';
+20.	RUN;
+
+

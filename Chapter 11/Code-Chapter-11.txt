@@ -1,0 +1,128 @@
+Example:
+1.	proc gchart data=s.admit;
+2.	hbar sex;
+3.	run;
+
+
+Example:
+The VBAR statement below specifies a vertical bar chart of the numeric variable Age, so, SAS/GRAPH software automatically determines intervals and labels them with their midpoint values:
+1.	proc gchart data=s.admit;
+2.	vbar age;
+3.	run;
+
+
+Example:
+•	proc gchart data=s.admit;
+•	pie actlevel;
+•	run;
+
+
+Example:
+1.	proc gchart data=s.insure;
+2.	hbar company;
+3.	run;
+
+
+Example 1:
+1.	proc gchart data=s.insure;
+2.	vbar company / type=cfreq;
+3.	run;
+
+
+Example 2:
+1.	proc gchart data=s.insure;
+2.	vbar company / type=percent;
+3.	run;
+
+
+Example 1:
+1.	proc gchart data=s.insurance;
+2.	vbar organization / sumvar=balance;
+3.	run;
+
+
+Example 2:
+1.	proc gchart data=s.insurance;
+2.	pie organization / sumvar=balance type=mean;
+3.	run;
+
+
+Example:
+1.	proc gchart data=clinic.admit;
+2.	hbar age / sumvar=weight type=mean;
+3.	where age>50;
+4.	run;
+
+
+Example:
+1.	proc gchart data=s.insurance;
+2.	vbar organization / sumvar=balance type=mean
+3.	patternid=midpoint;
+4.	run;
+
+
+Example: Grouped horizontal bar plot
+1.	title 'Horizontal Bar Plot';
+2.	proc sgplot data=s.cars1 ;
+3.	  hbar type_car / response=mpg_city  stat=mean  limits=both group=Origin_continent;
+4.	  yaxis display=(nolabel) grid;
+5.	  xaxis display=(nolabel);
+6.	  run;
+
+
+Example: Grouped scatter plot
+1.	title 'Scatter Plot';
+2.	proc sgplot data=s.class1;
+3.	scatter x=ht y=wt / group=gender;
+4.	run;
+
+
+Example: Grouped bubble plot
+1.	title 'Bubble Plot';
+2.	proc sgplot data=s.class1;
+3.	bubble x=ht y=wt size=age / group=gender;
+4.	run;
+
+
+Example: Grouped series plot
+1.	proc sgplot data=s.stocks1;
+2.	title "Prices of Stocks from 1986-2005";
+3.	series x=date y=close_price / group=stock_name;
+4.	run;
+
+
+Example: Grouped vertical bar chart
+1.	proc sgplot data=s.cars1;
+2.	title "Average Engine Size by Type of car & Origin continent";
+3.	vbar type_car / response=engine_size stat=mean
+4.	group=origin_continent groupdisplay=cluster;
+5.	run;
+
+
+Example: Horizontal box plot
+1.	title 'Horizontal Box Plot';
+2.	proc sgplot data=s.cars1;
+3.	title "Car Price by Car Type";
+4.	hbox msrp / category=type_car;
+5.	run;
+
+
+Example: Histogram and density plot
+1.	proc sgplot data=s.heart1 noautolegend;
+2.	title "Patients Weight Distribution";
+3.	histogram wt;
+4.	density wt;
+5.	run;
+
+
+Example: Bar and line chart
+1.	proc sgplot data=s.stocks1;
+2.	title '2005 IBM Stock Price & Volume';
+3.	where stock_name='IBM' and year(date)=2005;
+4.	vbarbasic date / response=vol y2axis;
+5.	series x=date y=close_price / markers;
+6.	run;
+
+
+
+
